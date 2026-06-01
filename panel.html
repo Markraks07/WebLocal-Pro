@@ -197,7 +197,7 @@
                     <div class="form-group">
                         <label>Email *</label>
                         <input type="email" id="c-email" required>
-                    </div>
+                      </div>
                     <div class="form-group">
                         <label>Teléfono</label>
                         <input type="tel" id="c-telefono">
@@ -205,28 +205,61 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>URL de su web</label>
-                        <input type="url" id="c-url" placeholder="https://...">
+                        <label>Tipo de web</label>
+                        <select id="c-tipo">
+                            <option value="basica">Básica</option>
+                            <option value="profesional">Profesional</option>
+                            <option value="ecommerce">E-commerce</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Precio cobrado (€)</label>
                         <input type="number" id="c-precio" placeholder="250">
                     </div>
                 </div>
+                <!-- NUEVOS CAMPOS AVANZADOS -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fase del Proyecto</label>
+                        <select id="c-fase">
+                            <option value="Contratado">📋 Contratado (Espera de datos)</option>
+                            <option value="Diseño">🎨 En Fase de Diseño</option>
+                            <option value="Desarrollo">💻 En Desarrollo Técnico</option>
+                            <option value="Revisión">👀 En Revisión con Cliente</option>
+                            <option value="Lanzado">🚀 Publicado / Lanzado</option>
+                            <option value="Mantenimiento">🔧 Mantenimiento Activo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado del Pago</label>
+                        <select id="c-pago-estado">
+                            <option value="Pendiente">❌ Pendiente de Pago</option>
+                            <option value="Señal">💰 50% Señal Pagada</option>
+                            <option value="Pagado">✅ Totalmente Pagado</option>
+                            <option value="Suscripción">🔄 Suscripción Mensual Activa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha de Inicio</label>
+                        <input type="date" id="c-fecha-inicio">
+                    </div>
+                    <div class="form-group">
+                        <label>Próxima Renovación (Dominio/Soporte)</label>
+                        <input type="date" id="c-fecha-renovacion">
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label>Tipo de web</label>
-                    <select id="c-tipo">
-                        <option value="basica">Básica</option>
-                        <option value="profesional">Profesional</option>
-                        <option value="ecommerce">E-commerce</option>
-                    </select>
+                    <label>Notas Técnicas y Accesos (Servidor, DNS, Colores, etc.)</label>
+                    <textarea id="c-notas-tecnicas" rows="3" placeholder="Hosting: Hostinger / Usuario: ... / Claves: ..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>Código de acceso cliente (para el chat)</label>
                     <input type="text" id="c-codigo" placeholder="ej: barberia123">
                 </div>
-                <div class="form-row" style="margin-top:10px">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="form-row" style="margin-top:15px">
+                    <button type="submit" class="btn btn-primary">Guardar Ficha</button>
                     <button type="button" class="btn btn-outline" onclick="cerrarModalCliente()">Cancelar</button>
                 </div>
             </form>
@@ -327,14 +360,19 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Rol *</label>
-                        <select id="s-rol">
-                            <option value="Socio">Socio</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Empleado">Empleado</option>
-                        </select>
-                    </div>
+                    
+                <div class="form-group">
+                    <label>Rol *</label>
+                    <select id="s-rol">
+                        <option value="Socio">Socio</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Empleado">Empleado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña de Acceso *</label>
+                    <input type="password" id="s-pass" placeholder="Contraseña para el trabajador" required>
+                </div>
                     <div class="form-group">
                         <label>Porcentaje Comisión (%)</label>
                         <input type="number" id="s-comision" placeholder="0" min="0" max="100">
