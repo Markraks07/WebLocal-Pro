@@ -59,7 +59,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // =============================================
 const portfolioGrid = document.getElementById('portfolio-grid');
 if (portfolioGrid) {
-    const iconos = { barberia:'💈', restaurante:'🍽️', ecommerce:'🛒', otro:'🌐' };
+    const iconos = { barberia: '💈', restaurante: '🍽️', ecommerce: '🛒', otro: '🌐' };
 
     onValue(ref(db, 'wlp_portfolio'), snap => {
         const data = snap.val() || {};
@@ -99,12 +99,12 @@ if (testimoniosGrid) {
     onValue(ref(db, 'wlp_testimonios'), snap => {
         const data = snap.val() || {};
         const items = Object.entries(data).map(([id, t]) => ({ id, ...t }));
-        
+
         if (items.length === 0) {
             testimoniosGrid.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:40px;grid-column:1/-1">Los testimonios de mis clientes aparecerán aquí.</p>';
             return;
         }
-        
+
         testimoniosGrid.innerHTML = items.map(t => `
             <div class="testimonio-card">
                 <div class="testimonio-estrellas">${'★'.repeat(t.estrellas || 5)}</div>
@@ -116,8 +116,40 @@ if (testimoniosGrid) {
                         <span>${t.negocio || ''}</span>
                     </div>
                 </div>
+                ${t.descripcion ? `<button class="btn btn-sm btn-outline" style="width:100%;margin-top:15px;" onclick="abrirTestimonioCompleto('${t.id}')">Leer historia completa →</button>` : ''}
             </div>
         `).join('');
+    });
+}
+
+function abrirTestimonioCompleto(id) {
+    get(ref(db, `wlp_testimonios/${id}`)).then(snap => {
+        const t = snap.val();
+        if (!t) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.style.display = 'flex';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width:700px">
+                <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px">
+                    <div>
+                        <h2>${t.nombre}</h2>
+                        <p style="color:#666;margin:0">${t.negocio || ''}</p>
+                        <p style="color:#f59e0b;font-size:1.2rem;margin:8px 0">${'★'.repeat(t.estrellas || 5)}</p>
+                    </div>
+                    <button onclick="this.closest('.modal').remove()" style="background:none;border:none;font-size:1.5rem;cursor:pointer">✕</button>
+                </div>
+                <div style="background:#f8fafc;padding:20px;border-radius:10px;margin-bottom:20px">
+                    <p style="font-style:italic;color:#666;line-height:1.8">${t.descripcion}</p>
+                </div>
+                <button onclick="this.closest('.modal').remove()" class="btn btn-primary" style="width:100%">Cerrar</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.remove();
+        });
     });
 }
 
@@ -138,16 +170,46 @@ if (blogGrid) {
         }
         
         blogGrid.innerHTML = items.map(b => `
-            <div class="blog-card">
+            <div class="blog-card" onclick="abrirArticuloBlog('${b.id}')">
                 <div class="blog-card-top">${b.emoji || '📝'}</div>
                 <div class="blog-card-body">
                     <span class="blog-tag">${b.categoria}</span>
                     <h3>${b.titulo}</h3>
                     <p>${(b.contenido || '').substring(0, 100)}...</p>
                     <span class="blog-fecha">${b.fecha}</span>
+                    <div style="margin-top:12px"><button class="btn btn-sm btn-outline" style="cursor:pointer">Leer más →</button></div>
                 </div>
             </div>
         `).join('');
+    });
+}
+
+function abrirArticuloBlog(id) {
+    get(ref(db, `wlp_blog/${id}`)).then(snap => {
+        const b = snap.val();
+        if (!b) return;
+        
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.style.display = 'flex';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width:800px">
+                <button onclick="this.closest('.modal').remove()" style="background:none;border:none;font-size:2rem;cursor:pointer;float:right">✕</button>
+                <div style="clear:both">
+                    <div style="font-size:3rem;text-align:center;margin:20px 0">${b.emoji || '📝'}</div>
+                    <h1 style="text-align:center;color:var(--dark);margin:20px 0">${b.titulo}</h1>
+                    <p style="text-align:center;color:#94a3b8;margin:10px 0"><strong>${b.categoria}</strong> • ${b.fecha}</p>
+                    <div style="background:#f8fafc;padding:30px;border-radius:10px;margin:30px 0;line-height:1.8;color:#333">
+                        ${b.contenido.replace(/\n/g, '<br><br>')}
+                    </div>
+                    <button onclick="this.closest('.modal').remove()" class="btn btn-primary" style="width:100%">Cerrar</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.remove();
+        });
     });
 }
 
@@ -161,18 +223,18 @@ if (formContacto) {
         const btn = formContacto.querySelector('button[type="submit"]');
         btn.textContent = 'Enviando...';
         btn.disabled = true;
-        
+
         const nombre = document.getElementById('con-nombre').value;
         const negocio = document.getElementById('con-negocio').value;
         const email = document.getElementById('con-email').value;
         const telefono = document.getElementById('con-telefono').value;
         const tipo = document.getElementById('con-tipo').value;
         const mensaje = document.getElementById('con-mensaje').value;
-        
+
         // Generar código único para el cliente
         const codigoCliente = 'CLI-' + Math.random().toString(36).substr(2, 9).toUpperCase();
         const timestamp = Date.now();
-        
+
         try {
             // 1. Guardar contacto
             await set(ref(db, `wlp_contactos/${timestamp}`), {
@@ -200,9 +262,9 @@ if (formContacto) {
             });
 
             console.log('✅ Contacto creado y cliente añadido:', codigoCliente);
-            
+
             formContacto.reset();
-            
+
             // 3. Mostrar mensaje de éxito con código
             if (document.getElementById('contacto-ok')) {
                 const okDiv = document.getElementById('contacto-ok');
@@ -223,15 +285,15 @@ if (formContacto) {
                     </div>
                 `;
                 okDiv.style.display = 'block';
-                
+
                 // Scroll hacia el mensaje
                 okDiv.scrollIntoView({ behavior: 'smooth' });
             }
-        } catch (err) { 
-            alert('Error al enviar. Inténtalo de nuevo.'); 
-            console.error(err); 
+        } catch (err) {
+            alert('Error al enviar. Inténtalo de nuevo.');
+            console.error(err);
         }
-        
+
         btn.textContent = 'Enviar mensaje 🚀';
         btn.disabled = false;
     });
@@ -441,7 +503,7 @@ document.getElementById('form-cliente')?.addEventListener('submit', async e => {
         codigo: document.getElementById('c-codigo').value,
         timestamp: Date.now()
     };
-    
+
     try {
         if (id) {
             await update(ref(db, `wlp_clientes/${id}`), data);
@@ -508,7 +570,7 @@ function abrirChatCliente(clienteId) {
         if (!msgs) return;
         const mensajes = snap.val() || {};
         const mList = Object.values(mensajes);
-        
+
         if (mList.length === 0) {
             msgs.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:20px">Sin mensajes</div>';
         } else {
@@ -528,7 +590,7 @@ function abrirChatCliente(clienteId) {
         const texto = input.value.trim();
         if (!texto) return;
         input.value = '';
-        
+
         try {
             await set(ref(db, `wlp_chats/${clienteId}/${Date.now()}`), {
                 texto,
@@ -594,7 +656,7 @@ document.getElementById('form-portfolio')?.addEventListener('submit', async e =>
         descripcion: document.getElementById('p-descripcion').value,
         timestamp: Date.now()
     };
-    
+
     try {
         if (id) {
             await update(ref(db, `wlp_portfolio/${id}`), data);
@@ -666,7 +728,7 @@ document.getElementById('form-blog')?.addEventListener('submit', async e => {
         fecha: new Date().toLocaleDateString('es-ES'),
         timestamp: Date.now()
     };
-    
+
     try {
         if (id) {
             await update(ref(db, `wlp_blog/${id}`), data);
@@ -737,7 +799,7 @@ if (formLoginCliente) {
     // Verificar si viene código en URL
     const urlParams = new URLSearchParams(window.location.search);
     const codigoURL = urlParams.get('codigo');
-    
+
     if (sessionStorage.getItem('wlp_cliente_id')) {
         mostrarPortalCliente(sessionStorage.getItem('wlp_cliente_id'));
     } else if (codigoURL) {
@@ -766,7 +828,7 @@ if (formLoginCliente) {
     formLoginCliente.addEventListener('submit', async e => {
         e.preventDefault();
         const codigo = document.getElementById('codigo-acceso').value.trim();
-        
+
         const snap = await get(ref(db, 'wlp_clientes'));
         const clientes = snap.val() || {};
         const clientesArray = Object.entries(clientes).map(([id, c]) => ({ id, ...c }));
@@ -797,7 +859,7 @@ async function mostrarPortalCliente(clienteId) {
     const clientes = snap.val() || {};
     const clientesArray = Object.entries(clientes).map(([id, c]) => ({ id, ...c }));
     const cliente = clientesArray.find(c => c.id === clienteId);
-    
+
     if (!cliente) return;
 
     if (document.getElementById('cliente-bienvenida')) {
@@ -819,7 +881,7 @@ async function mostrarPortalCliente(clienteId) {
         if (!msgs) return;
         const mensajes = snap.val() || {};
         const mList = Object.values(mensajes);
-        
+
         if (mList.length === 0) {
             msgs.innerHTML = '<div style="text-align:center;color:#94a3b8;padding:20px">Sin mensajes</div>';
         } else {
@@ -841,7 +903,7 @@ async function mostrarPortalCliente(clienteId) {
             const texto = input.value.trim();
             if (!texto) return;
             input.value = '';
-            
+
             try {
                 await set(ref(db, `wlp_chats/${clienteId}/${Date.now()}`), {
                     texto,
@@ -859,6 +921,254 @@ async function mostrarPortalCliente(clienteId) {
 // Cerrar modales
 window.addEventListener('click', e => {
     if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+});
+
+// =============================================
+// FORMULARIOS DINÁMICOS POR PLAN
+// =============================================
+let planSeleccionado = 'professional';
+
+function cambiarFormularioPorPlan(plan) {
+    planSeleccionado = plan;
+    const form = document.getElementById('form-contacto');
+
+    // Limpiar formulario
+    form.innerHTML = '';
+
+    let html = '';
+
+    if (plan === 'essential') {
+        html = `
+      <div class="form-group">
+        <label>Tu nombre *</label>
+        <input type="text" id="con-nombre" placeholder="Juan García" required>
+      </div>
+      <div class="form-group">
+        <label>Tu email *</label>
+        <input type="email" id="con-email" placeholder="tu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Tu teléfono *</label>
+        <input type="tel" id="con-telefono" placeholder="+34 600 000 000" required>
+      </div>
+      <div class="form-group">
+        <label>Tu negocio *</label>
+        <input type="text" id="con-negocio" placeholder="Barbería, restaurante..." required>
+      </div>
+      <div class="form-group">
+        <label>Cuéntame sobre tu proyecto *</label>
+        <textarea id="con-mensaje" rows="4" placeholder="¿Qué necesitas?" required></textarea>
+      </div>
+    `;
+    } else if (plan === 'professional') {
+        html = `
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tu nombre *</label>
+          <input type="text" id="con-nombre" placeholder="Juan García" required>
+        </div>
+        <div class="form-group">
+          <label>Tu negocio *</label>
+          <input type="text" id="con-negocio" placeholder="Barbería, restaurante..." required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="con-email" placeholder="tu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="con-telefono" placeholder="+34 600 000 000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de servicio *</label>
+        <input type="text" id="con-tipo" placeholder="Diseño gráfico, consultoría..." required>
+      </div>
+      <div class="form-group">
+        <label>Presupuesto aproximado (€)</label>
+        <input type="number" id="con-presupuesto" placeholder="250-500">
+      </div>
+      <div class="form-group">
+        <label>Cuéntame tu proyecto *</label>
+        <textarea id="con-mensaje" rows="4" placeholder="Describe tu proyecto en detalle..." required></textarea>
+      </div>
+    `;
+    } else if (plan === 'enterprise') {
+        html = `
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tu nombre *</label>
+          <input type="text" id="con-nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Tu negocio *</label>
+          <input type="text" id="con-negocio" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="con-email" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono *</label>
+          <input type="tel" id="con-telefono" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de servicio *</label>
+        <input type="text" id="con-tipo" required>
+      </div>
+      <div class="form-group">
+        <label>Descripción detallada del proyecto *</label>
+        <textarea id="con-descripcion" rows="4" placeholder="Cuéntame todo sobre tu proyecto..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Presupuesto aproximado (€) *</label>
+          <input type="number" id="con-presupuesto" required>
+        </div>
+        <div class="form-group">
+          <label>¿Cuándo lo necesitas? *</label>
+          <select id="con-timeline" required>
+            <option value="">Selecciona</option>
+            <option value="asap">ASAP (Urgente)</option>
+            <option value="1semana">1 semana</option>
+            <option value="2semanas">2 semanas</option>
+            <option value="sinprisa">Sin prisa</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notas adicionales</label>
+        <textarea id="con-mensaje" rows="3" placeholder="Cualquier otra cosa..."></textarea>
+      </div>
+    `;
+    }
+
+    html += `
+    <input type="hidden" id="con-plan" value="${plan}">
+    <button type="submit" class="btn btn-primary" style="width:100%">Enviar solicitud 🚀</button>
+    <div id="contacto-ok" style="display:none" class="form-ok"></div>
+  `;
+
+    form.innerHTML = html;
+
+    // Re-vincular evento submit
+    form.addEventListener('submit', enviarContacto);
+}
+
+async function enviarContacto(e) {
+    e.preventDefault();
+    const btn = document.querySelector('button[type="submit"]');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    const plan = document.getElementById('con-plan').value;
+    const nombre = document.getElementById('con-nombre').value;
+    const negocio = document.getElementById('con-negocio').value;
+    const email = document.getElementById('con-email').value;
+    const telefono = document.getElementById('con-telefono').value || '';
+    const tipo = document.getElementById('con-tipo').value || '';
+    const presupuesto = document.getElementById('con-presupuesto')?.value || '';
+    const descripcion = document.getElementById('con-descripcion')?.value || '';
+    const timeline = document.getElementById('con-timeline')?.value || '';
+    const mensaje = document.getElementById('con-mensaje').value;
+
+    const codigoCliente = 'CLI-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const timestamp = Date.now();
+
+    try {
+        await set(ref(db, `wlp_contactos/${timestamp}`), {
+            nombre, negocio, email, telefono, tipo, presupuesto,
+            descripcion, timeline, mensaje, plan,
+            estado: 'nuevo',
+            fecha: new Date().toLocaleDateString('es-ES'),
+            timestamp
+        });
+
+        await set(ref(db, `wlp_clientes/${timestamp}`), {
+            nombre, negocio, email, telefono, tipo, plan,
+            codigo: codigoCliente,
+            estado: 'contacto-inicial',
+            timestamp
+        });
+
+        const okDiv = document.getElementById('contacto-ok');
+        okDiv.innerHTML = `
+      <div style="padding: 20px; background: #d4edda; border: 2px solid #28a745; border-radius: 8px; text-align: center;">
+        <h3 style="color: #155724; margin-top: 0;">✅ ¡Mensaje enviado!</h3>
+        <p style="color: #155724;">Tu código: <strong>${codigoCliente}</strong></p>
+        <a href="cliente.html?codigo=${codigoCliente}" class="btn btn-primary" style="display: inline-block; margin-top: 15px;">🚀 Entrar a tu panel</a>
+      </div>
+    `;
+        okDiv.style.display = 'block';
+        okDiv.scrollIntoView({ behavior: 'smooth' });
+
+        document.getElementById('form-contacto').reset();
+    } catch (err) {
+        alert('Error: ' + err.message);
+    }
+
+    btn.textContent = 'Enviar solicitud 🚀';
+    btn.disabled = false;
+}
+
+// Inicializar con Professional por defecto
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('form-contacto')) {
+        cambiarFormularioPorPlan('professional');
+    }
+});
+
+function abrirModalTestimonio(id = null) {
+    document.getElementById('modal-testimonio').style.display = 'flex';
+    document.getElementById('form-testimonio').reset();
+    if (id) {
+        const t = testimoniosData.find(x => x.id === id);
+        if (t) {
+            document.getElementById('modal-testimonio-titulo').textContent = 'Editar Testimonio';
+            document.getElementById('t-id').value = t.id;
+            document.getElementById('t-nombre').value = t.nombre || '';
+            document.getElementById('t-negocio').value = t.negocio || '';
+            document.getElementById('t-estrellas').value = t.estrellas || '5';
+            document.getElementById('t-texto').value = t.texto || '';
+            document.getElementById('t-descripcion').value = t.descripcion || '';
+        }
+    } else {
+        document.getElementById('modal-testimonio-titulo').textContent = 'Nuevo Testimonio';
+        document.getElementById('t-id').value = '';
+    }
+}
+
+function cerrarModalTestimonio() { 
+    document.getElementById('modal-testimonio').style.display = 'none'; 
+}
+
+document.getElementById('form-testimonio')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const id = document.getElementById('t-id').value;
+    const data = {
+        nombre: document.getElementById('t-nombre').value,
+        negocio: document.getElementById('t-negocio').value,
+        estrellas: parseInt(document.getElementById('t-estrellas').value),
+        texto: document.getElementById('t-texto').value,
+        descripcion: document.getElementById('t-descripcion').value,
+        timestamp: Date.now()
+    };
+    
+    try {
+        if (id) {
+            await update(ref(db, `wlp_testimonios/${id}`), data);
+        } else {
+            await set(ref(db, `wlp_testimonios/${Date.now()}`), data);
+        }
+        cerrarModalTestimonio();
+    } catch (err) {
+        alert('❌ Error: ' + err.message);
+    }
 });
 
 // =============================================
@@ -881,5 +1191,9 @@ window.marcarLeido = marcarLeido;
 window.eliminarContacto = eliminarContacto;
 window.cerrarSesion = cerrarSesion;
 window.cerrarSesionCliente = cerrarSesionCliente;
+window.abrirTestimonioCompleto = abrirTestimonioCompleto;
+window.abrirModalTestimonio = abrirModalTestimonio;
+window.cerrarModalTestimonio = cerrarModalTestimonio;
+window.abrirArticuloBlog = abrirArticuloBlog;
 
 console.log('✅ WebLocal Pro - Script completo cargado');
