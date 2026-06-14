@@ -146,7 +146,8 @@
                         <li>✅ Formulario de contacto</li>
                         <li>✅ Responsivo</li>
                     </ul>
-                    <a href="#contacto" class="btn btn-primary">Contratar Essential</a>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('essential')">Contratar Essential</a>
                 </div>
 
                 <!-- PROFESSIONAL -->
@@ -161,7 +162,8 @@
                         <li>✅ Chat en tiempo real</li>
                         <li>✅ Blog básico</li>
                     </ul>
-                    <a href="#contacto" class="btn btn-primary">Contratar Professional</a>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('professional')">Contratar Professional</a>
                 </div>
 
                 <!-- ENTERPRISE -->
@@ -175,7 +177,8 @@
                         <li>✅ Blog completo</li>
                         <li>✅ Soporte 6 meses</li>
                     </ul>
-                    <a href="#contacto" class="btn btn-primary">Contratar Enterprise</a>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('enterprise')">Contratar Enterprise</a>
                 </div>
 
             </div>
@@ -549,8 +552,51 @@
             <div class="testimonios-grid" id="testimonios-grid">
                 <div class="testimonio-loading">Cargando testimonios...</div>
             </div>
+            <button class="btn btn-primary btn-testimonio" onclick="abrirModalTestimonio()">Haz el tuyo</button>
         </div>
     </section>
+    <!-- MODAL TESTIMONIO -->
+    <div id="modal-testimonio" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2 id="modal-testimonio-titulo">Nuevo Testimonio</h2>
+            <form id="form-testimonio">
+                <input type="hidden" id="t-id">
+                <div class="form-group">
+                    <label>Nombre del cliente *</label>
+                    <input type="text" id="t-nombre" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Negocio/Empresa</label>
+                        <input type="text" id="t-negocio">
+                    </div>
+                    <div class="form-group">
+                        <label>Estrellas (1-5) *</label>
+                        <select id="t-estrellas" required>
+                            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                            <option value="4">⭐⭐⭐⭐ (4)</option>
+                            <option value="3">⭐⭐⭐ (3)</option>
+                            <option value="2">⭐⭐ (2)</option>
+                            <option value="1">⭐ (1)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Testimonio corto (para la tarjeta) *</label>
+                    <textarea id="t-texto" rows="2" placeholder="Texto corto para mostrar..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Descripción completa (para leer completo) *</label>
+                    <textarea id="t-descripcion" rows="6" placeholder="Historia completa del cliente..."
+                        required></textarea>
+                </div>
+                <div class="form-row" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-outline" onclick="cerrarModalTestimonio()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- BLOG -->
     <section id="blog">
