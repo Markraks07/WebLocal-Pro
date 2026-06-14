@@ -644,6 +644,12 @@ section {
   font-size: 0.85rem;
 }
 
+.btn-testimonio {
+  display: block;
+  margin: 30px auto 0;
+  text-align: center;
+}
+
 /* ===== BLOG ===== */
 #blog {
   background: white;
