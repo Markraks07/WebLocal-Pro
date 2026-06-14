@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel - WebLocal Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- LOGIN -->
@@ -26,7 +28,8 @@
                     <input type="password" id="login-pass" placeholder="Contraseña" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%">Entrar</button>
-                <p id="login-error" style="display:none;color:var(--danger);text-align:center;margin-top:10px">❌ Credenciales incorrectas</p>
+                <p id="login-error" style="display:none;color:var(--danger);text-align:center;margin-top:10px">❌
+                    Credenciales incorrectas</p>
             </form>
         </div>
     </div>
@@ -129,7 +132,15 @@
                 </div>
                 <div class="tabla-wrapper">
                     <table class="tabla-admin">
-                        <thead><tr><th>Nombre</th><th>Tipo</th><th>URL</th><th>Precio</th><th>Acciones</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>URL</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
                         <tbody id="tbody-portfolio"></tbody>
                     </table>
                 </div>
@@ -143,7 +154,14 @@
                 </div>
                 <div class="tabla-wrapper">
                     <table class="tabla-admin">
-                        <thead><tr><th>Título</th><th>Categoría</th><th>Fecha</th><th>Acciones</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
                         <tbody id="tbody-blog"></tbody>
                     </table>
                 </div>
@@ -154,7 +172,17 @@
                 <h2>📩 Solicitudes de contacto</h2>
                 <div class="tabla-wrapper">
                     <table class="tabla-admin">
-                        <thead><tr><th>Nombre</th><th>Negocio</th><th>Email</th><th>Tipo</th><th>Mensaje</th><th>Estado</th><th>Acciones</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Negocio</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>Mensaje</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
                         <tbody id="tbody-mensajes"></tbody>
                     </table>
                 </div>
@@ -301,4 +329,5 @@
 
     <script type="module" src="script.js"></script>
 </body>
+
 </html>
