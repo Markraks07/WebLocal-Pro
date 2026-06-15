@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebLocal Pro - Webs para Negocios Locales</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-icon">🌐</span>
+                <span class="logo-text">WebLocal<span class="logo-pro">Pro</span></span>
+            </div>
+            <button class="hamburguesa" id="menu-hamburguesa">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="panel.html" class="btn-panel">🔐 Panel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Diseño Web Profesional</div>
+            <h1>Webs que hacen<br><span class="highlight">crecer tu negocio</span></h1>
+            <p>Diseño webs modernas, rápidas y profesionales para negocios locales. Sin complicaciones, sin sorpresas.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn btn-primary">Solicitar presupuesto gratis</a>
+                <a href="#portfolio" class="btn btn-outline">Ver mi trabajo</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-num" id="stat-webs">0</span>
+                    <span class="hero-stat-label">Webs creadas</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num" id="stat-clientes">0</span>
+                    <span class="hero-stat-label">Clientes activos</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">100%</span>
+                    <span class="hero-stat-label">Satisfacción</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="mockup-browser">
+                <div class="mockup-bar">
+                    <span></span><span></span><span></span>
+                    <div class="mockup-url">weblocalpro.netlify.app</div>
+                </div>
+                <div class="mockup-content">
+                    <div class="mockup-line long"></div>
+                    <div class="mockup-line medium"></div>
+                    <div class="mockup-grid">
+                        <div class="mockup-card"></div>
+                        <div class="mockup-card"></div>
+                        <div class="mockup-card"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">Servicios</span>
+                <h2>¿Qué incluye tu web?</h2>
+                <p>Todo lo que necesita tu negocio para tener presencia online profesional</p>
+            </div>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <div class="servicio-icon">🎨</div>
+                    <h3>Diseño Personalizado</h3>
+                    <p>Diseño único adaptado a tu negocio y estilo. Sin plantillas genéricas.</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">📱</div>
+                    <h3>Responsive</h3>
+                    <p>Tu web se verá perfecta en móvil, tablet y ordenador.</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">⚡</div>
+                    <h3>Carga Rápida</h3>
+                    <p>Webs optimizadas para cargar rápido y mejorar tu posicionamiento.</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">🔧</div>
+                    <h3>Soporte Incluido</h3>
+                    <p>Chat directo conmigo para cualquier duda o cambio que necesites.</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">🌐</div>
+                    <h3>Dominio + Hosting</h3>
+                    <p>Te ayudo a configurar tu dominio y hosting a un precio mínimo.</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">📊</div>
+                    <h3>SEO Básico</h3>
+                    <p>Optimización para que Google encuentre tu negocio fácilmente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =============================================
+     SECCIÓN PLANES - ADAPTADA A TUS ESTILOS
+     ============================================= -->
+
+    <section id="planes" class="planes">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">💰 PLANES</span>
+                <h2>Nuestros Packs</h2>
+                <p>Elige el pack que mejor se ajuste a tu negocio, o construye el tuyo personalizado</p>
+            </div>
+
+            <!-- PLANES GRID -->
+            <div class="precios-grid">
+
+                <!-- ESSENTIAL -->
+                <div class="precio-card">
+                    <h3>⚡ Essential</h3>
+                    <div class="precio-num">150€</div>
+                    <ul class="precio-lista">
+                        <li>✅ Landing page (1 página)</li>
+                        <li>✅ Hero + Secciones</li>
+                        <li>✅ Formulario de contacto</li>
+                        <li>✅ Responsivo</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('essential')">Contratar Essential</a>
+                </div>
+
+                <!-- PROFESSIONAL -->
+                <div class="precio-card destacado">
+                    <div class="precio-badge">⭐ Popular</div>
+                    <h3>🚀 Professional</h3>
+                    <div class="precio-num">300€</div>
+                    <ul class="precio-lista">
+                        <li>✅ Web completa (5 páginas)</li>
+                        <li>✅ Home, Servicios, Portfolio, Blog, Contacto</li>
+                        <li>✅ Admin panel</li>
+                        <li>✅ Chat en tiempo real</li>
+                        <li>✅ Blog básico</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('professional')">Contratar Professional</a>
+                </div>
+
+                <!-- ENTERPRISE -->
+                <div class="precio-card">
+                    <h3>🏆 Enterprise</h3>
+                    <div class="precio-num">500€</div>
+                    <ul class="precio-lista">
+                        <li>✅ Hasta 10 páginas</li>
+                        <li>✅ Admin panel avanzado</li>
+                        <li>✅ Chat en tiempo real</li>
+                        <li>✅ Blog completo</li>
+                        <li>✅ Soporte 6 meses</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-primary"
+                        onclick="cambiarFormularioPorPlan('enterprise')">Contratar Enterprise</a>
+                </div>
+
+            </div>
+
+            <!-- CUSTOM BUILDER -->
+            <div class="custom-builder-section">
+                <div class="section-header" style="margin-top: 80px;">
+                    <span class="section-tag">🎨 PERSONALIZADO</span>
+                    <h2>Construye tu pack personalizado</h2>
+                    <p>Selecciona tu base y agrega los extras que necesites</p>
+                </div>
+
+                <div class="custom-builder">
+
+                    <!-- BASE PACK -->
+                    <div class="builder-box">
+                        <h3>1️⃣ Elige tu base:</h3>
+                        <div class="builder-options">
+                            <label class="builder-option">
+                                <input type="radio" name="base-pack" value="essential" data-price="150"
+                                    onchange="actualizarPrecio()">
+                                <div class="option-content">
+                                    <strong>Essential - One Page</strong>
+                                    <span>150€</span>
+                                </div>
+                            </label>
+                            <label class="builder-option">
+                                <input type="radio" name="base-pack" value="professional" data-price="300"
+                                    onchange="actualizarPrecio()">
+                                <div class="option-content">
+                                    <strong>Professional - 5 Páginas</strong>
+                                    <span>300€</span>
+                                </div>
+                            </label>
+                            <label class="builder-option">
+                                <input type="radio" name="base-pack" value="enterprise" data-price="500"
+                                    onchange="actualizarPrecio()">
+                                <div class="option-content">
+                                    <strong>Enterprise - 10 Páginas</strong>
+                                    <span>500€</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- EXTRAS -->
+                    <div class="builder-box">
+                        <h3>2️⃣ Agrega extras (opcional):</h3>
+                        <div class="builder-extras">
+                            <label class="builder-extra">
+                                <input type="checkbox" value="whatsapp" data-price="30" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>📞 WhatsApp integrado</span>
+                                    <span class="extra-precio">+€30</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="analytics" data-price="20" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>📊 Google Analytics</span>
+                                    <span class="extra-precio">+€20</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="popups" data-price="25" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>🎯 Pop-ups de conversión</span>
+                                    <span class="extra-precio">+€25</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="galeria" data-price="45" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>🖼️ Galería fotográfica avanzada</span>
+                                    <span class="extra-precio">+€45</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="newsletter" data-price="35" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>📧 Newsletter básica</span>
+                                    <span class="extra-precio">+€35</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- PÁGINAS ADICIONALES (solo Enterprise) -->
+                    <div class="builder-box" id="paginas-section" style="display: none;">
+                        <h3>3️⃣ Páginas adicionales:</h3>
+                        <div class="builder-extras">
+                            <label class="builder-extra">
+                                <input type="checkbox" value="paginas-5" data-price="60" onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>+5 páginas</span>
+                                    <span class="extra-precio">+€60</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="paginas-10" data-price="100"
+                                    onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>+10 páginas</span>
+                                    <span class="extra-precio">+€100</span>
+                                </div>
+                            </label>
+                            <label class="builder-extra">
+                                <input type="checkbox" value="paginas-infinitas" data-price="150"
+                                    onchange="actualizarPrecio()">
+                                <div class="extra-content">
+                                    <span>Ilimitadas páginas</span>
+                                    <span class="extra-precio">+€150</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL -->
+                    <div class="builder-total">
+                        <p style="margin-bottom: 10px; color: var(--gray);">Precio total de tu web:</p>
+                        <div id="total-precio"
+                            style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 20px;">150€
+                        </div>
+                        <a href="#contacto" class="btn btn-primary">Contratar mi web personalizada</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ESTILOS PERSONALIZADOS PARA PLANES -->
+    <style>
+        /* CUSTOM BUILDER */
+        .custom-builder-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: var(--light);
+            border-radius: 15px;
+        }
+
+        .custom-builder {
+            display: grid;
+            gap: 30px;
+        }
+
+        .builder-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .builder-box h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .builder-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .builder-option {
+            display: flex;
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .builder-option:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+
+        .builder-option input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .option-content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-content strong {
+            color: var(--dark);
+        }
+
+        .option-content span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .builder-extras {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .builder-extra {
+            display: flex;
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .builder-extra:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+
+        .builder-extra input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .extra-content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .extra-content span:first-child {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .extra-precio {
+            color: var(--primary);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .builder-total {
+            background: linear-gradient(135deg, var(--primary), #0d47a1);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .builder-total p {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .builder-total .btn-primary {
+            background: white;
+            color: var(--primary);
+            border: none;
+        }
+
+        .builder-total .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        #total-precio {
+            display: block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .custom-builder-section {
+                padding: 20px;
+            }
+
+            .builder-box {
+                padding: 20px;
+            }
+
+            .builder-extras {
+                grid-template-columns: 1fr;
+            }
+
+            .precios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .precio-card.destacado {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+    <!-- SCRIPT PARA CALCULADORA -->
+    <script>
+        function actualizarPrecio() {
+            const basePack = document.querySelector('input[name="base-pack"]:checked');
+            const extras = document.querySelectorAll('input[type="checkbox"]:checked');
+
+            let precioTotal = 0;
+
+            // Precio base
+            if (basePack) {
+                precioTotal = parseInt(basePack.dataset.price);
+            }
+
+            // Extras
+            extras.forEach(extra => {
+                precioTotal += parseInt(extra.dataset.price);
+            });
+
+            // Mostrar u ocultar sección de páginas adicionales
+            const paginasSection = document.getElementById('paginas-section');
+            if (basePack && basePack.value === 'enterprise') {
+                paginasSection.style.display = 'block';
+            } else {
+                paginasSection.style.display = 'none';
+                // Desmarcar páginas si cambia de pack
+                document.querySelectorAll('input[value^="paginas"]').forEach(p => p.checked = false);
+            }
+
+            // Actualizar total
+            document.getElementById('total-precio').textContent = precioTotal + '€';
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarPrecio();
+        });
+    </script>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">Portfolio</span>
+                <h2>Mis trabajos</h2>
+                <p>Webs reales que he diseñado para negocios locales</p>
+            </div>
+            <div class="portfolio-stats">
+                <div class="pstat"><span id="pstat-total">0</span><small>Webs creadas</small></div>
+                <div class="pstat"><span id="pstat-activas">0</span><small>Clientes activos</small></div>
+                <div class="pstat"><span id="pstat-tipos">3</span><small>Tipos de negocio</small></div>
+            </div>
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- Se carga con JS -->
+                <div class="portfolio-loading">Cargando portfolio...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">Testimonios</span>
+                <h2>Lo que dicen mis clientes</h2>
+            </div>
+            <div class="testimonios-grid" id="testimonios-grid">
+                <div class="testimonio-loading">Cargando testimonios...</div>
+            </div>
+            <button class="btn btn-primary btn-testimonio" onclick="abrirModalTestimonio()">Haz el tuyo</button>
+        </div>
+    </section>
+    <!-- MODAL TESTIMONIO -->
+    <div id="modal-testimonio" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2 id="modal-testimonio-titulo">Nuevo Testimonio</h2>
+            <form id="form-testimonio">
+                <input type="hidden" id="t-id">
+                <div class="form-group">
+                    <label>Nombre del cliente *</label>
+                    <input type="text" id="t-nombre" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Negocio/Empresa</label>
+                        <input type="text" id="t-negocio">
+                    </div>
+                    <div class="form-group">
+                        <label>Estrellas (1-5) *</label>
+                        <select id="t-estrellas" required>
+                            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                            <option value="4">⭐⭐⭐⭐ (4)</option>
+                            <option value="3">⭐⭐⭐ (3)</option>
+                            <option value="2">⭐⭐ (2)</option>
+                            <option value="1">⭐ (1)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Testimonio corto (para la tarjeta) *</label>
+                    <textarea id="t-texto" rows="2" placeholder="Texto corto para mostrar..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Descripción completa (para leer completo) *</label>
+                    <textarea id="t-descripcion" rows="6" placeholder="Historia completa del cliente..."
+                        required></textarea>
+                </div>
+                <div class="form-row" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-outline" onclick="cerrarModalTestimonio()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BLOG -->
+    <section id="blog">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">Blog</span>
+                <h2>Consejos para tu negocio online</h2>
+            </div>
+            <div class="blog-grid" id="blog-grid">
+                <div class="blog-loading">Cargando artículos...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="contenedor">
+            <div class="section-header">
+                <span class="section-tag">Contacto</span>
+                <h2>¿Hablamos?</h2>
+                <p>Cuéntame tu proyecto y te preparo un presupuesto gratis en 24h</p>
+            </div>
+            <div class="contacto-box">
+                <form id="form-contacto">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tu nombre *</label>
+                            <input type="text" id="con-nombre" placeholder="Juan García" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tu negocio *</label>
+                            <input type="text" id="con-negocio" placeholder="Barbería, restaurante..." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="con-email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" id="con-telefono" placeholder="+34 600 000 000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de web</label>
+                        <select id="con-tipo">
+                            <option value="">Selecciona</option>
+                            <option value="basica">Básica (150€)</option>
+                            <option value="profesional">Profesional (250€)</option>
+                            <option value="ecommerce">E-commerce (350€)</option>
+                            <option value="no-se">No sé, necesito consejo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje *</label>
+                        <textarea id="con-mensaje" rows="4" placeholder="Cuéntame sobre tu negocio..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar mensaje 🚀</button>
+                    <div id="contacto-ok" style="display:none" class="form-ok">✅ ¡Mensaje enviado! Te respondo en menos
+                        de 24h.</div>
+                </form>
+                <div class="contacto-info">
+                    <div class="info-card">
+                        <span>📍</span>
+                        <div>
+                            <strong>Ubicación</strong>
+                            <p>Tu Ciudad, España</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <span>⚡</span>
+                        <div>
+                            <strong>Respuesta rápida</strong>
+                            <p>Menos de 24 horas</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <span>💰</span>
+                        <div>
+                            <strong>Presupuesto gratis</strong>
+                            <p>Sin compromiso</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <span>🎓</span>
+                        <div>
+                            <strong>Experiencia</strong>
+                            <p>+3 webs entregadas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">🌐</span>
+                <span class="logo-text">WebLocal<span class="logo-pro">Pro</span></span>
+            </div>
+            <p>Diseño web profesional para negocios locales</p>
+            <p style="opacity:0.5;font-size:0.85rem">© 2024 WebLocal Pro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cliente - WebLocal Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN CLIENTE -->
+    <div id="login-cliente" class="login-screen">
+        <div class="login-box">
+            <div class="logo" style="justify-content:center;margin-bottom:20px">
+                <span class="logo-icon">🌐</span>
+                <span class="logo-text">WebLocal<span class="logo-pro">Pro</span></span>
+            </div>
+            <h2>Portal del Cliente</h2>
+            <p style="text-align:center;color:#666;margin-bottom:20px">Accede con el código que te proporcioné</p>
+            <form id="form-login-cliente">
+                <div class="form-group">
+                    <label>Código de acceso</label>
+                    <input type="text" id="codigo-acceso" placeholder="ej: barberia123" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Acceder</button>
+                <p id="login-cliente-error" style="display:none;color:var(--danger);text-align:center;margin-top:10px">❌
+                    Código incorrecto</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- PORTAL CLIENTE -->
+    <div id="portal-cliente" style="display:none">
+        <header
+            style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 30px; box-shadow: 0 1px 10px rgba(0,0,0,0.08); position: sticky; top:0; z-index:100;">
+            <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                <span class="logo-icon">🌐</span>
+                <span class="logo-text" style="color:var(--primary)">WebLocal<span class="logo-pro"
+                        style="color:var(--secondary)">Pro</span></span>
+            </div>
+            <h2 id="cliente-bienvenida" style="font-size:1.1rem; opacity:0.9; margin: 0;"></h2>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="index.html" class="btn btn-outline btn-sm"
+                    style="text-decoration: none; display: flex; align-items: center; gap: 5px;">🏠 Volver a la Web</a>
+                <button class="btn btn-outline btn-sm" onclick="cerrarSesionCliente()">Cerrar sesión</button>
+            </div>
+        </header>
+
+        <div id="cliente-facturacion-box"
+            style="background: white; border-radius: 15px; padding: 25px; border: 1px solid var(--border); margin-bottom: 25px; display: none;">
+            <h3 style="color: var(--dark); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">💳
+                Suscripción y Facturas</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                <div
+                    style="background: var(--light); padding: 15px; border-radius: 10px; border: 1px solid var(--border);">
+                    <span style="color: var(--gray); font-size: 0.8rem; display: block; font-weight: bold;">PRÓXIMO
+                        PAGO</span>
+                    <strong id="factura-fecha" style="font-size: 1.1rem; color: var(--dark)">-- / -- / ----</strong>
+                    <span id="factura-metodo"
+                        style="font-size: 0.85rem; color: var(--gray); display: block; margin-top: 4px;">Método:
+                        Transferencia</span>
+                </div>
+                <div
+                    style="background: var(--light); padding: 15px; border-radius: 10px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="color: var(--gray); font-size: 0.8rem; display: block; font-weight: bold;">ÚLTIMA
+                            FACTURA</span>
+                        <span id="factura-mes"
+                            style="font-size: 0.95rem; color: var(--dark); font-weight: 600;">Descargar factura
+                            actual</span>
+                    </div>
+                    <a id="factura-link" href="#" target="_blank"
+                        style="margin-top: 10px; display: inline-block; background: var(--dark); color: white; text-align: center; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: bold;">📄
+                        Descargar PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width:1000px;margin:0 auto;padding:30px 20px">
+
+            <!-- INFO DE SU WEB -->
+            <div class="cliente-web-info" id="cliente-web-info"></div>
+
+            <div
+                style="background: white; border-radius: 15px; padding: 25px; border: 1px solid var(--border); margin-bottom: 25px;">
+                <h3 style="color: var(--dark); margin-bottom: 5px;">📋 Tareas de puesta en marcha</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Completa los pasos enviándome el
+                    material necesario para poder finalizar tu sitio web.</p>
+
+                <div
+                    style="background: #e2e8f0; border-radius: 10px; height: 20px; width: 100%; position: relative; margin-bottom: 25px; overflow: hidden;">
+                    <div id="barra-progreso-cliente"
+                        style="background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 100%; width: 0%; transition: width 0.5s ease;">
+                    </div>
+                    <span id="texto-progreso-cliente"
+                        style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; color: var(--dark);">0%
+                        Completado</span>
+                </div>
+
+                <div id="lista-tareas-cliente" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="tarea-item"
+                        style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin-bottom: 10px;"
+                        id="item-tarea1">
+                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">1. Textos de la Web (Sobre
+                            nosotros, Servicios, Historia...)</label>
+                        <form id="form-tarea1" style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="input-tarea1"
+                                placeholder="Pega el enlace a tu Google Docs o Dropbox aquí..." required
+                                style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            <button type="submit" class="btn btn-primary"
+                                style="padding: 8px 15px; font-size: 0.9rem;">Enviar Enlace</button>
+                        </form>
+                    </div>
+
+                    <div class="tarea-item"
+                        style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin-bottom: 10px;"
+                        id="item-tarea2">
+                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">2. Carpeta de Elementos
+                            Multimedia (Fotos, Vídeos, Audios, Logo)</label>
+                        <form id="form-tarea2" style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="input-tarea2"
+                                placeholder="Enlace a Google Drive o WeTransfer con tus archivos..." required
+                                style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            <button type="submit" class="btn btn-primary"
+                                style="padding: 8px 15px; font-size: 0.9rem;">Enviar Carpeta</button>
+                        </form>
+                    </div>
+
+                    <div class="tarea-item"
+                        style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin-bottom: 10px;"
+                        id="item-tarea3">
+                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">3. Datos de Contacto y
+                            Redes Sociales</label>
+                        <form id="form-tarea3" style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="input-tarea3"
+                                placeholder="Teléfono, Dirección, Instagram, Facebook..." required
+                                style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;">
+                            <button type="submit" class="btn btn-primary"
+                                style="padding: 8px 15px; font-size: 0.9rem;">Enviar Datos</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="seccion-tutoriales-cliente"
+                style="display: none; background: linear-gradient(135deg, #f8fafc, #eff6ff); border-radius: 15px; padding: 25px; border: 2px dashed var(--secondary); margin-bottom: 25px;">
+                <h3 style="color: var(--dark); display: flex; align-items: center; gap: 10px;">🎓 ¡Academia Web
+                    Desbloqueada! 🎉</h3>
+                <p style="color: #475569; font-size: 0.95rem; margin-bottom: 20px;">¡Enhorabuena! Has completado todas
+                    tus entregas. Aquí tienes tus videotutoriales personalizados para aprender a gestionar tu nuevo
+                    sitio como un profesional:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div
+                        style="background: white; padding: 15px; border-radius: 10px; border: 1px solid var(--border);">
+                        <h4 style="margin-bottom: 8px; color: var(--primary)">1. Cómo gestionar tus reservas y clientes
+                        </h4>
+                        <p style="font-size: 0.85rem; color:#64748b; margin-bottom: 12px;">Aprende a controlar el
+                            calendario de citas, aceptar peticiones y gestionar tu base de datos desde el panel.</p>
+                        <a href="https://www.youtube.com/watch?v=tu_video_id" target="_blank"
+                            style="display: inline-block; background: var(--dark); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: bold;">Ver
+                            Vídeo (5 min) ↗</a>
+                    </div>
+
+                    <div
+                        style="background: white; padding: 15px; border-radius: 10px; border: 1px solid var(--border);">
+                        <h4 style="margin-bottom: 8px; color: var(--primary)">2. Actualizar la Carta, Menú o Servicios
+                        </h4>
+                        <p style="font-size: 0.85rem; color:#64748b; margin-bottom: 12px;">Modifica los precios, añade
+                            nuevos productos y cambia platos o servicios en tiempo real sin romper el diseño.</p>
+                        <a href="https://www.youtube.com/watch?v=tu_video_id" target="_blank"
+                            style="display: inline-block; background: var(--dark); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: bold;">Ver
+                            Vídeo (4 min) ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAT -->
+            <div class="cliente-chat-box">
+                <h3>💬 Chat con soporte</h3>
+                <p style="color:#666;font-size:0.9rem;margin-bottom:15px">Escríbeme cualquier duda o incidencia.
+                    Respondo en menos de 24h.</p>
+                <div class="chat-mensajes" id="chat-mensajes-cliente">
+                    <div style="text-align:center;color:#999;padding:20px">No hay mensajes aún. ¡Escríbeme!</div>
+                </div>
+                <form id="form-chat-cliente" class="chat-input-box">
+                    <input type="text" id="chat-input-cliente" placeholder="Escribe tu mensaje..." required>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
